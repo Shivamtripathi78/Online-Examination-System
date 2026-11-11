@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examination | ExamPortal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+
+<header class="navbar">
+    <a href="/" class="logo">Exam<span>Portal.</span></a>
+
+    <div class="timer">
+        Time Left: <strong id="timer">{{ duration }}:00</strong>
+    </div>
+</header>
+
+<main class="exam-container">
+
+    <div class="exam-heading">
+        <h1>General Technology Examination</h1>
+        <p>Student: {{ session.get('student_name') }}</p>
+    </div>
+
+    <form id="examForm" action="{{ url_for('submit_exam') }}" method="POST">
+
+        {% for question in questions %}
+        <div class="question-card">
+
+            <h3>
+                <span>Q{{ loop.index }}.</span>
+                {{ question.question }}
+            </h3>
+
+            {% for option, label in [
+                ('A', question.option_a),
+                ('B', question.option_b),
+                ('C', question.option_c),
+                ('D', question.option_d)
+            ] %}
+
+            <label class="option">
+                <input
+                    type="radio"
+                    name="{{ question.id }}"
+                    value="{{ option }}"
+                >
+                <span>{{ option }}. {{ label }}</span>
+            </label>
+
+            {% endfor %}
+
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="primary-btn submit-btn">
+            Submit Examination
+        </button>
+
+    </form>
+
+</main>
+
+</body>
+</html>

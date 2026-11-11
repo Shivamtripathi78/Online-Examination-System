@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examination Result | ExamPortal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="/" class="logo">Exam<span>Portal.</span></a>
+</header>
+
+<main class="result-container">
+
+    <div class="result-card">
+
+        <span class="badge">EXAMINATION COMPLETED</span>
+
+        <h1>Your Result</h1>
+
+        <p class="student-result">
+            Student: {{ result.student_name }}
+        </p>
+
+        <div class="score-circle">
+            <strong>{{ result.percentage }}%</strong>
+            <span>Overall Score</span>
+        </div>
+
+        <div class="result-stats">
+            <div>
+                <strong>{{ result.score }}</strong>
+                <span>Correct</span>
+            </div>
+
+            <div>
+                <strong>{{ result.total - result.score }}</strong>
+                <span>Incorrect / Unanswered</span>
+            </div>
+
+            <div>
+                <strong>{{ result.total }}</strong>
+                <span>Total Questions</span>
+            </div>
+        </div>
+
+        {% if result.time_expired %}
+            <p class="flash error">Time limit was exceeded. Your answers were submitted.</p>
+        {% endif %}
+
+        <h2 class="review-heading">Answer Review</h2>
+
+        {% for answer in result.answers %}
+        <div class="review-item">
+
+            <h3>Q{{ loop.index }}. {{ answer.question }}</h3>
+
+            <p>
+                Your Answer:
+                <strong>{{ answer.selected or "Not answered" }}</strong>
+            </p>
+
+            <p>
+                Correct Answer:
+                <strong class="correct">{{ answer.correct }}</strong>
+            </p>
+
+            <span class="{{ 'correct' if answer.is_correct else 'incorrect' }}">
+                {{ "Correct" if answer.is_correct else "Incorrect" }}
+            </span>
+
+        </div>
+        {% endfor %}
+
+        <div class="result-actions">
+            <a href="{{ url_for('home') }}" class="primary-btn">Take Another Exam</a>
+            <a href="{{ url_for('history') }}" class="secondary-btn">View History</a>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamPortal | Online Examination</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="/" class="logo">Exam<span>Portal.</span></a>
+    <a href="{{ url_for('history') }}" class="nav-link">Results History</a>
+</header>
+
+<main class="hero">
+    <div class="hero-content">
+        <span class="badge">ONLINE EXAMINATION SYSTEM</span>
+
+        <h1>Test Your Knowledge.<br><span>Track Your Progress.</span></h1>
+
+        <p>
+            Take online examinations, evaluate your knowledge,
+            and get your results instantly.
+        </p>
+
+        <form method="POST" class="start-card">
+            <label for="student_name">Enter Your Name</label>
+
+            <input
+                type="text"
+                id="student_name"
+                name="student_name"
+                placeholder="Your full name"
+                maxlength="80"
+                required
+            >
+
+            <div class="exam-info">
+                <div>
+                    <strong>10</strong>
+                    <span>Questions</span>
+                </div>
+                <div>
+                    <strong>10</strong>
+                    <span>Minutes</span>
+                </div>
+                <div>
+                    <strong>10</strong>
+                    <span>Marks</span>
+                </div>
+            </div>
+
+            <button type="submit" class="primary-btn">
+                Start Examination →
+            </button>
+        </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <p class="flash {{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+    </div>
+</main>
+
+<footer>
+    <p>ExamPortal © 2026 | Online Examination System</p>
+</footer>
+
+</body>
+</html>

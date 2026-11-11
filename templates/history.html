@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results History | ExamPortal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="/" class="logo">Exam<span>Portal.</span></a>
+    <a href="/" class="nav-link">Home</a>
+</header>
+
+<main class="history-container">
+
+    <h1>Examination History</h1>
+    <p class="history-subtitle">Previously submitted examination results.</p>
+
+    {% if results %}
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Score</th>
+                    <th>Percentage</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <td>{{ result.student_name }}</td>
+                    <td>{{ result.score }}/{{ result.total }}</td>
+                    <td>{{ result.percentage }}%</td>
+                    <td>{{ result.exam_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+        <h3>No examination records yet.</h3>
+        <p>Complete an examination to see your results here.</p>
+        <a href="/" class="primary-btn">Start Examination</a>
+    </div>
+
+    {% endif %}
+
+</main>
+
+</body>
+</html>
