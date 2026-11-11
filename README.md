@@ -29,10 +29,6 @@ python -m pip install -r requirements.txt
 python app.py
 ```
 
-## Usage
-
-Open `http://127.0.0.1:5000` in your browser, enter your name, and start the examination.
-
 ## Database
 
 SQLite automatically creates the `exam.db` database and initializes sample MCQ questions.
